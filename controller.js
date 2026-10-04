@@ -4,6 +4,7 @@ import renderAllLettersView from "./view/renderAllLettersView.js";
 import renderWordLetters from "./view/renderWordLettersView.js";
 import guessingView from "./view/guessingView.js";
 import newGameView from "./view/newGameView.js";
+import menuView from "./view/menuView.js";
 
 const controlAllLetters = function () {
   renderAllLettersView.render(model.state.allLetters);
@@ -57,20 +58,27 @@ const gameOver = function (state, color) {
 const controlNewGame = function () {
   document.querySelector(`.forma`).classList.add(`hiddenReal`);
   document.getElementById(`progress-bar`).value = 100;
-  initHelper();
+  initHelper(model.state.currentCategory);
+};
+
+const controlCategory = function (btn) {
+  document.querySelector(`.forma`).classList.add(`hiddenReal`);
+  document.getElementById(`progress-bar`).value = 100;
+  initHelper(btn.dataset.id);
 };
 
 const init = async function () {
-  await model.loadWord(`countries`);
+  await model.loadWord();
 
-  initHelper();
+  initHelper(`countries`);
 
+  menuView.pickCategory(controlCategory);
   guessingView.guess(controlGuess);
   newGameView.newGame(controlNewGame);
 };
 
-const initHelper = function () {
-  model.chooseRandomWord();
+const initHelper = function (type) {
+  model.chooseRandomWord(type);
   controlAllLetters();
   controlWordLetters();
 };

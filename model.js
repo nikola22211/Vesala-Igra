@@ -31,6 +31,7 @@ export const state = {
   ],
   words: {},
   currentWord: ``,
+  currentCategory: ``,
   curWordLetters: [],
   curWordSplit: {
     letters: {},
@@ -44,12 +45,15 @@ const randomNumber = function (max) {
 export const loadWord = async function (type) {
   const response = await fetch(`./words.json`);
   const data = await response.json();
-  state.words = data[type];
+  state.words = data;
+  console.log(state.words);
 };
 
-export const chooseRandomWord = function () {
-  const len = state.words.length;
-  state.currentWord = state.words[randomNumber(len)];
+export const chooseRandomWord = function (type) {
+  state.currentCategory = type;
+  const words = state.words[type];
+  const len = words.length;
+  state.currentWord = words[randomNumber(len)];
   state.curWordSplit = state.currentWord.split(``).reduce((acc, letter) => {
     return { ...acc, [letter]: false };
   }, {});

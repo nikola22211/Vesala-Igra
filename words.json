@@ -1,4 +1,5 @@
 {
-  "countries": ["BELGIUM BELGIUM BELGIUM", "SERBIA", "AUSTRIA"],
-  "food": ["PIZZA", "ICE CREAM"]
+  "countries": ["BELGIUM BELGIUM BELGIUM ARR", "SERBIA", "AUSTRIA"],
+  "food": ["PIZZA", "ICE CREAM"],
+  "movies": ["SHAWSHANK REDEMPTION", "GODFATHER", "TAXI DRIVER"]
 }

@@ -13,11 +13,15 @@ const controlWordLetters = function () {
   renderWordLetters.render(model.state.curWordLetters);
 };
 
-const controlGuess = function (btn) {
-  const letter = btn.dataset.letter;
+const buttonManipulation = function (btn) {
   btn.disabled = true;
   btn.style.opacity = 0.5;
   btn.classList.add(`btn_disabled`);
+};
+
+const controlGuess = function (btn) {
+  const letter = btn.dataset.letter;
+  buttonManipulation(btn);
   const divLetters = document.querySelectorAll(`.${letter}x`);
   [...divLetters].forEach((el) => {
     el.classList.remove(`hidden`);
@@ -30,10 +34,10 @@ const controlGuess = function (btn) {
     progressBar.value -= 20;
   }
   if (progressBar.value === 0) {
-    gameLost();
+    gameOver(`LOST`, `red`);
   }
   if (Object.values(model.state.curWordSplit).every((el) => el)) {
-    gameWon();
+    gameOver(`WON`, `green`);
   }
 };
 
@@ -43,16 +47,11 @@ const formaHelper = function () {
   return forma;
 };
 
-const gameWon = function () {
+const gameOver = function (state, color) {
   const forma = formaHelper();
-  forma.querySelector(`.you-won`).textContent = `YOU WON`;
-  forma.style.backgroundColor = `green`;
-};
-
-const gameLost = function () {
-  const forma = formaHelper();
-  forma.querySelector(`.you-won`).textContent = `YOU LOST`;
-  forma.style.backgroundColor = `red`;
+  forma.querySelector(`.you-won`).textContent = `YOU ${state}`;
+  forma.style.backgroundColor = color;
+  document.querySelectorAll(`.btn`).forEach((el) => (el.disabled = true));
 };
 
 const controlNewGame = function () {
@@ -61,15 +60,17 @@ const controlNewGame = function () {
   initHelper();
 };
 
-const init = function () {
-  initHelper(); //OVO CE BITI ASINHRONA FUNKCIJA
+const init = async function () {
+  await model.loadWord(`countries`);
+
+  initHelper();
 
   guessingView.guess(controlGuess);
   newGameView.newGame(controlNewGame);
 };
 
 const initHelper = function () {
-  model.loadWord();
+  model.chooseRandomWord();
   controlAllLetters();
   controlWordLetters();
 };

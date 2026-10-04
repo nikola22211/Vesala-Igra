@@ -29,7 +29,7 @@ export const state = {
     `Y`,
     `Z`,
   ],
-  words: [`ABB`, `BAA`],
+  words: {},
   currentWord: ``,
   curWordLetters: [],
   curWordSplit: {
@@ -41,7 +41,13 @@ const randomNumber = function (max) {
   return Math.floor(Math.random() * max);
 };
 
-export const loadWord = function () {
+export const loadWord = async function (type) {
+  const response = await fetch(`./words.json`);
+  const data = await response.json();
+  state.words = data[type];
+};
+
+export const chooseRandomWord = function () {
   const len = state.words.length;
   state.currentWord = state.words[randomNumber(len)];
   state.curWordSplit = state.currentWord.split(``).reduce((acc, letter) => {

@@ -47,7 +47,6 @@ body {
   color: white;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
 }
 .rowWord {
   display: flex;
@@ -100,6 +99,7 @@ body {
   font-family: cursive;
   border-radius: 30px;
   background-color: rgb(255, 255, 255);
+  z-index: 10;
 }
 #progress-bar {
   position: absolute;
@@ -142,4 +142,9 @@ body {
 }
 .dropdown:hover .content {
   display: block;
+}
+.categoryP {
+  position: absolute;
+  left: 200px;
+  font-size: 30px;
 }

@@ -10,6 +10,13 @@ class MenuView {
       handler(btn);
     });
   }
+
+  showCategory(category) {
+    const cat = this._parentElement.querySelector(`.categoryP`);
+    cat.textContent = ``;
+    const newContent = document.createTextNode(category);
+    cat.appendChild(newContent);
+  }
 }
 
 export default new MenuView();

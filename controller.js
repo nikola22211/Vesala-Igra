@@ -53,6 +53,10 @@ const gameOver = function (state, color) {
   forma.querySelector(`.you-won`).textContent = `YOU ${state}`;
   forma.style.backgroundColor = color;
   document.querySelectorAll(`.btn`).forEach((el) => (el.disabled = true));
+  document.querySelectorAll(`.hidden`).forEach((el) => {
+    el.style.backgroundColor = `blue`;
+    el.style.color = `white`;
+  });
 };
 
 const controlNewGame = function () {
@@ -81,5 +85,6 @@ const initHelper = function (type) {
   model.chooseRandomWord(type);
   controlAllLetters();
   controlWordLetters();
+  menuView.showCategory(type);
 };
 init();
